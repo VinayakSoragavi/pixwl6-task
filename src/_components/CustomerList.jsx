@@ -50,7 +50,7 @@ const CustomerList = ({ onEdit, setMode }) => {
       const address = [
         AddressModification(customer.addresses),
         customer.addresses.length,
-        <TableButton key={customer.pan} customer={customer} onEdit={onEdit} />,
+        <TableButton key={index} customer={customer} onEdit={onEdit} />,
       ];
       return [serialno, ...subarr, ...address];
     });

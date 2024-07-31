@@ -9,7 +9,8 @@ function IconButtonBox({ title, fun, type, bgcolor, src }) {
       // Only attach the click handler if the button type is "button"
       onClick={type === "button" ? fun : undefined}
       style={{ backgroundColor: bgcolor || "#7a5cfa" }}
-      aria-label={title} // Improve accessibility by providing an aria-label for screen readers
+      // Improve accessibility by providing an aria-label for screen readers
+      aria-label={title}
     >
       {/* Render an image inside the button */}
       <img className="w-3" src={src} alt={title} />

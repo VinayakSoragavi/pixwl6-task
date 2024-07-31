@@ -8,13 +8,13 @@ function TableBody({ arr }) {
         return (
           <tr
             // Unique key for each row, using customer PAN
-            key={customer.pan}
+            key={index}
             className="bg-white hover:bg-[#eaeaea] border-b-8 border-white"
           >
             {/* Iterate over the customer data for each row */}
-            {customer.map((elem) => (
+            {customer.map((elem, i) => (
               <td
-                key={elem}
+                key={i}
                 className="whitespace-nowrap px-4 py-3 text-black font-normal"
               >
                 {/* Display the cell content */}

@@ -1,6 +1,12 @@
 import { useState } from "react";
-import { verifyData } from "../utils/api";
+import axios from "axios";
 
+/**
+ * Custom hook to verify PAN number.
+ *
+ * @param {Function} setValue - Function to update form values.
+ * @returns {Object} - Returns an object containing the loading state and verifyPAN function.
+ */
 const usePANVerification = (setValue) => {
   const [loading, setLoading] = useState(false);
 
@@ -15,23 +21,33 @@ const usePANVerification = (setValue) => {
 
     // Set loading state to true before starting the request
     setLoading(true);
+
     try {
       // Make API call to verify PAN number
-      const response = await verifyData(process.env.PAN_VALIDATION_URL, {
-        panNumber: pan,
-      });
-
-      // Check if PAN number is valid based on API response
+      const response = await axios.post(
+        "https://lab.pixel6.co/api/verify-pan.php",
+        {
+          panNumber: pan,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      // Check if the API call was successful
       if (response.data.isValid) {
-        // Set the fullName field if PAN is valid
+        // Update the fullName field if PAN is valid
         setValue("fullName", response.data.fullName);
       } else {
-        // Alert user if PAN is not valid
+        // Handle invalid PAN scenario
         alert("Invalid PAN");
+        setValue("fullName", ""); // Clear fullName field if PAN is invalid
       }
     } catch (error) {
-      // Log any errors that occur during the API call
-      console.error(error);
+      // Log and handle errors
+      console.error("Error verifying PAN:", error);
+      alert("An error occurred while verifying PAN.");
     } finally {
       // Reset loading state regardless of the outcome
       setLoading(false);
@@ -39,9 +55,7 @@ const usePANVerification = (setValue) => {
   };
 
   return {
-    // Indicates if the verification process is in progress
     loading,
-    // Function to call for PAN verification
     verifyPAN,
   };
 };

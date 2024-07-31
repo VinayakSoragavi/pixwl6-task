@@ -18,9 +18,12 @@ const usePostcodeVerification = (setValue) => {
     setLoading(true);
     try {
       // Make API call to verify postcode
-      const response = await verifyData(process.env.POSTCODE_VALIDATION_URL, {
-        postcode,
-      });
+      const response = await verifyData(
+        "https://lab.pixel6.co/api/get-postcode-details.php",
+        {
+          postcode,
+        }
+      );
 
       // Update form fields with city and state information from the API response
       setValue(`addresses.${index}.city`, response.data.city[0].name);

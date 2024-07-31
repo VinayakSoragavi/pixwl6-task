@@ -47,7 +47,7 @@ export const formSchema = [
       },
       {
         label: "State",
-        type: "select",
+        type: "text",
         name: "state",
       },
     ],
