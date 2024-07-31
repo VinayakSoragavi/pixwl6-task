@@ -25,7 +25,7 @@ const usePANVerification = (setValue) => {
     try {
       // Make API call to verify PAN number
       const response = await axios.post(
-        "https://lab.pixel6.co/api/verify-pan.php",
+        process.env.REACT_APP_PAN_VALIDATION_URL,
         {
           panNumber: pan,
         },

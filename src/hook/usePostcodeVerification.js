@@ -19,7 +19,7 @@ const usePostcodeVerification = (setValue) => {
     try {
       // Make API call to verify postcode
       const response = await verifyData(
-        "https://lab.pixel6.co/api/get-postcode-details.php",
+        process.env.REACT_APP_POSTCODE_VALIDATION_URL,
         {
           postcode,
         }
