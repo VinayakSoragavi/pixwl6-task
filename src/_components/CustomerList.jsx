@@ -1,4 +1,10 @@
-import React, { useCallback, useMemo } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ButtonBox from "./form-components/ButtonBox";
 import { formSchema } from "../utils/Fromstructure";
@@ -11,6 +17,34 @@ const CustomerList = ({ onEdit, setMode }) => {
   // Retrieve customers from the Redux store
   const customers = useSelector((state) => state.customers);
   const dispatch = useDispatch();
+
+  const outerDivRef = useRef(null);
+  const innerDivRef = useRef(null);
+  const [isOuterWider, setIsOuterWider] = useState(false);
+
+  const checkWidths = () => {
+    if (outerDivRef.current && innerDivRef.current) {
+      const outerWidth = outerDivRef.current.offsetWidth;
+      const innerWidth = innerDivRef.current.offsetWidth;
+      setIsOuterWider(outerWidth < innerWidth);
+      console.log(outerWidth < innerWidth);
+    }
+  };
+
+  useEffect(() => {
+    checkWidths(); // Initial check
+
+    const handleResize = () => {
+      checkWidths();
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    // Cleanup listener on component unmount
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   // Function to format address data
   function AddressModification(data) {
@@ -69,9 +103,15 @@ const CustomerList = ({ onEdit, setMode }) => {
           fun={() => setTheMode()}
         />
       </div>
+      {isOuterWider && (
+        <p className="mb-2">
+          <b>Alert:</b> Scroll right to view the data
+        </p>
+      )}
+
       {/* Table to display customer list */}
-      <div className="overflow-x-auto">
-        <div className="inline-block min-w-full ">
+      <div ref={outerDivRef} className="overflow-x-auto">
+        <div ref={innerDivRef} className="inline-block min-w-full ">
           <div className="overflow-hidden">
             <table className="min-w-full text-left text-sm font-light text-surface dark:text-white">
               <TableHead arr={headers} />
