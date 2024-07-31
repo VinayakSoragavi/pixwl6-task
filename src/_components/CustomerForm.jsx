@@ -63,6 +63,8 @@ const CustomerForm = ({ customer, onClose, setMode }) => {
   const { loading: postcodeLoading, verifyPostcode } =
     usePostcodeVerification(setValue);
 
+  console.log(process.env.REACT_APP_PAN_VALIDATION_URL);
+
   return (
     <div className=" bg-white p-8 rounded-lg w-full lg:w-[768px] h-full">
       <div className="overflow-x-scroll h-full">
@@ -70,6 +72,9 @@ const CustomerForm = ({ customer, onClose, setMode }) => {
           <div className="lg:overflow-hidden">
             {/* Form submission handler */}
             <form className="min-w-full" onSubmit={handleSubmit(onSubmit)}>
+              <p className="mb-2">
+                <b>Alert:</b> Write only the PAN number to retrieve the name
+              </p>
               <div className="lg:grid  lg:grid-cols-2 gap-4">
                 {formSchema.map((elem, i) => {
                   if (elem.type !== "array") {
@@ -96,7 +101,13 @@ const CustomerForm = ({ customer, onClose, setMode }) => {
                       <div className="col-span-2" key={i}>
                         {fields.map((address, index) => (
                           <div className="grid grid-cols-2 gap-4 " key={index}>
-                            <h4 className="col-span-2">Address {index + 1}</h4>
+                            <h4 className="col-span-2 -mb-3">
+                              Address {index + 1}
+                            </h4>
+                            <p className="col-span-2">
+                              <b>Alert:</b> Write the pincode to retrieve the
+                              city name and state name.
+                            </p>
                             {elem.fields.map((val, k) => (
                               <InputField
                                 key={k}
@@ -127,7 +138,7 @@ const CustomerForm = ({ customer, onClose, setMode }) => {
               </div>
 
               {/* Form buttons */}
-              <div className="flex gap-2 mt-5">
+              <div className="flex flex-wrap gap-2 mt-5">
                 <ButtonBox
                   type={"button"}
                   title={"Cancel"}
