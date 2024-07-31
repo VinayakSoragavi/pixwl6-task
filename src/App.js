@@ -6,14 +6,18 @@ import CustomerList from "./_components/CustomerList";
 import HeadLine from "./_components/HeadLine";
 
 const App = () => {
+  // State to manage the currently editing customer
   const [editingCustomer, setEditingCustomer] = useState(null);
+  // State to manage the mode (e.g., "Edit the customer")
   const [mode, setMode] = useState("");
 
+  // Handler to set the mode to edit and assign the customer to be edited
   const handleEdit = (customer) => {
     setMode("Edit the customer");
     setEditingCustomer(customer);
   };
 
+  // Handler to close the form and reset the editing customer
   const handleCloseForm = () => {
     setEditingCustomer(null);
   };
@@ -39,6 +43,7 @@ const App = () => {
             </div>
           </div>
         )}
+        {/* Main content */}
         <div className="h-full pb-7 px-5 md:px-10 lg:px-20 flex flex-col">
           <HeadLine
             color={mode == "" ? "black" : "#e5e8e8"}

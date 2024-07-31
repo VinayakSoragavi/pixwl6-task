@@ -14,6 +14,8 @@ import ButtonBox from "./form-components/ButtonBox";
 const CustomerForm = ({ customer, onClose, setMode }) => {
   const dispatch = useDispatch();
   const initialValues = useInitialValues(formSchema);
+
+  // Initialize form with validation schema and default values
   const {
     register,
     control,
@@ -26,19 +28,21 @@ const CustomerForm = ({ customer, onClose, setMode }) => {
     defaultValues: initialValues,
   });
 
+  // Reset form when customer changes
   useEffect(() => {
     if (customer) {
       reset(customer);
     }
   }, [customer, reset]);
 
+  // Initialize field array for addresses
   const { fields, append } = useFieldArray({
     control,
     name: "addresses",
   });
 
+  // Handle form submission
   const onSubmit = (data) => {
-    // Check for duplicate email and PAN
     if (customer) {
       dispatch(updateCustomer(data));
     } else {
@@ -49,10 +53,12 @@ const CustomerForm = ({ customer, onClose, setMode }) => {
     setTheMode();
   };
 
+  // Reset mode after form submission
   function setTheMode() {
     setMode("");
   }
 
+  // Custom hooks for PAN and postcode verification
   const { loading: panLoading, verifyPAN } = usePANVerification(setValue);
   const { loading: postcodeLoading, verifyPostcode } =
     usePostcodeVerification(setValue);
@@ -62,10 +68,12 @@ const CustomerForm = ({ customer, onClose, setMode }) => {
       <div className="overflow-x-scroll h-full">
         <div className="lg:inline-block lg:min-w-full">
           <div className="lg:overflow-hidden">
+            {/* Form submission handler */}
             <form className="min-w-full" onSubmit={handleSubmit(onSubmit)}>
               <div className="lg:grid  lg:grid-cols-2 gap-4">
                 {formSchema.map((elem, i) => {
                   if (elem.type !== "array") {
+                    // Render input fields for non-array elements
                     return (
                       <InputField
                         key={i}
@@ -83,6 +91,7 @@ const CustomerForm = ({ customer, onClose, setMode }) => {
                       />
                     );
                   } else {
+                    // Render input fields for address array
                     return (
                       <div className="col-span-2" key={i}>
                         {fields.map((address, index) => (
@@ -117,6 +126,7 @@ const CustomerForm = ({ customer, onClose, setMode }) => {
                 })}
               </div>
 
+              {/* Form buttons */}
               <div className="flex gap-2 mt-5">
                 <ButtonBox
                   type={"button"}

@@ -10,8 +10,10 @@ function InputField({
   control,
   registerFormate,
 }) {
+  // Function to select the appropriate input field based on type
   function selectInputField(type) {
     switch (type) {
+      // Render InputBox for text, email, or number types
       case "text" || "email" || "number": {
         return (
           <InputBox
@@ -21,6 +23,7 @@ function InputField({
           />
         );
       }
+      // Render SelectBox for select type
       case "select": {
         return (
           <SelectBox
@@ -31,6 +34,7 @@ function InputField({
           />
         );
       }
+      // Default to InputBox for any other types
       default: {
         return (
           <InputBox
@@ -45,11 +49,15 @@ function InputField({
 
   return (
     <div className="flex flex-wrap mb-2">
+      {/* Label for the input field */}
       <label className="text-[14px] font-medium w-full mb-2">
         {value.label}
       </label>
+      {/* Render the appropriate input field based on type */}
       {selectInputField(value.type)}
+      {/* Display loading indicator if applicable */}
       {loading && value.name === "pan" && <span>Loading...</span>}
+      {/* Display error message if there are errors */}
       {errors?.[value.name] && (
         <p className="text-red-500 text-[13px]">{errors[value.name].message}</p>
       )}

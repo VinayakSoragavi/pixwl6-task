@@ -1,3 +1,4 @@
+// Schema defining the structure of the form fields
 export const formSchema = [
   {
     label: "PAN",

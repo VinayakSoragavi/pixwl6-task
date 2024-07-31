@@ -1,13 +1,18 @@
-function IconButtonBox({ title, fun, type, bgcolor, src }) {
-  const bgColorClass = bgcolor ? `bg-[${bgcolor}]` : "bg-[#7a5cfa]";
+import React from "react";
 
+function IconButtonBox({ title, fun, type, bgcolor, src }) {
   return (
     <button
-      className={`p-2 rounded-full  ${bgColorClass}`}
+      // Apply base styling and dynamic background color to the button
+      className={`p-2 rounded-full`}
       type={type}
-      onClick={type === "button" ? fun : null}
+      // Only attach the click handler if the button type is "button"
+      onClick={type === "button" ? fun : undefined}
+      style={{ backgroundColor: bgcolor || "#7a5cfa" }}
+      aria-label={title} // Improve accessibility by providing an aria-label for screen readers
     >
-      <img className="w-3" src={src} />
+      {/* Render an image inside the button */}
+      <img className="w-3" src={src} alt={title} />
     </button>
   );
 }
