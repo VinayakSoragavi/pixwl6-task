@@ -4,7 +4,7 @@ function IconButtonBox({ title, fun, type, bgcolor, src }) {
   return (
     <button
       // Apply base styling and dynamic background color to the button
-      className={`p-2 rounded-full`}
+      className={`p-[5px] rounded-full`}
       type={type}
       // Only attach the click handler if the button type is "button"
       onClick={type === "button" ? fun : undefined}

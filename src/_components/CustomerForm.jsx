@@ -63,8 +63,6 @@ const CustomerForm = ({ customer, onClose, setMode }) => {
   const { loading: postcodeLoading, verifyPostcode } =
     usePostcodeVerification(setValue);
 
-  console.log(process.env.REACT_APP_PAN_VALIDATION_URL);
-
   return (
     <div className=" bg-white p-8 rounded-lg w-full lg:w-[768px] h-full">
       <div className="overflow-x-scroll h-full">
