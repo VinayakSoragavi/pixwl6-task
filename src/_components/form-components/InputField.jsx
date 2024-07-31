@@ -17,6 +17,7 @@ function InputField({
       case "text" || "email" || "number": {
         return (
           <InputBox
+            value={value}
             register={register}
             handlePANBlur={handleBlur}
             registerFormate={registerFormate}
@@ -38,6 +39,7 @@ function InputField({
       default: {
         return (
           <InputBox
+            value={value}
             register={register}
             handlePANBlur={handleBlur}
             registerFormate={registerFormate}

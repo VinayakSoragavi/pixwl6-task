@@ -1,6 +1,6 @@
 import React from "react";
 
-function InputBox({ register, handlePANBlur, registerFormate }) {
+function InputBox({ register, handlePANBlur, registerFormate, value }) {
   return (
     <input
       // Apply styles to the input field
@@ -9,6 +9,8 @@ function InputBox({ register, handlePANBlur, registerFormate }) {
       {...register(registerFormate)}
       // Attach a blur event handler if provided
       onBlur={handlePANBlur}
+      // Conditionally apply readOnly attribute
+      readOnly={value.readOnly}
     />
   );
 }
