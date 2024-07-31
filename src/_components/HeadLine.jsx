@@ -1,0 +1,11 @@
+import React, { useState } from "react";
+
+function HeadLine({ title, color }) {
+  return (
+    <h1 style={{ color: color ? color : "black" }} className={`pb-2 pt-7`}>
+      {title}
+    </h1>
+  );
+}
+
+export default HeadLine;
